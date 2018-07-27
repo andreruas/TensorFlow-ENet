@@ -151,13 +151,13 @@ def run():
                     logging.info('Epoch: %s/%s', step / num_batches_per_epoch + 1, num_epochs)
                     logging.info('Current Streaming Accuracy: %.4f', accuracy_value)
                     logging.info('Current Streaming Mean IOU: %.4f', mean_IOU_value)
-                    
+
                 #Compute summaries every 10 steps and continue evaluating
                 if step % 10 == 0:
                     test_accuracy, test_mean_IOU, test_per_class_accuracy = eval_step(sess, metrics_op = metrics_op, global_step = sv.global_step)
                     summaries = sess.run(my_summary_op)
                     sv.summary_computed(sess, summaries)
-                    
+
                 #Otherwise just run as per normal
                 else:
                     test_accuracy, test_mean_IOU, test_per_class_accuracy = eval_step(sess, metrics_op = metrics_op, global_step = sv.global_step)
@@ -179,7 +179,7 @@ def run():
                 logging.info('Saving the images now...')
                 predictions_val, annotations_val = sess.run([predictions, annotations])
 
-                for i in xrange(10):
+                for i in range(10):
                     predicted_annotation = predictions_val[i]
                     annotation = annotations_val[i]
 
