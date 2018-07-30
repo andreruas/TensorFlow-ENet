@@ -5,6 +5,7 @@ from enet import ENet, ENet_arg_scope
 from preprocessing import preprocess
 from scipy.misc import imsave
 import numpy as np
+import cv2
 slim = tf.contrib.slim
 
 image_dir = 'RailData2-1/test/'
@@ -22,7 +23,7 @@ https://github.com/alexgkendall/SegNet-Tutorial/blob/c922cc4a4fcc7ce279dd998fb2d
 
 However, the road_marking class is collapsed into the road class in the dataset provided.
 '''
-label_to_colours =    {0: [255,0,0],
+label_to_colours =    {0: [0,0,0],
                      1: [0,0,255]}
 #Create the photo directory
 photo_dir = checkpoint_dir + "/test_images"
@@ -90,4 +91,23 @@ with tf.Graph().as_default() as graph:
                 plt.axis('off')
                 plt.imshow(converted_image)
                 imsave(photo_dir + "/image_%s.png" %(i*1 + j), converted_image)
+
+                conv_image = cv2.imread(photo_dir + "/image_%s.png" %(i*1 + j))
+                temp = cv2.imread(images_list[i*1+j])
+                #cv2.imwrite(photo_dir + "/image_%s_orig.png" %(i*1 + j), temp)
+
+
+
+                comb = cv2.addWeighted(temp,0.4,conv_image,0.6,0)
+                cv2.imwrite(photo_dir + "/image_%s_comb.png" %(i*1 + j), comb)
                 # plt.show()
+
+
+
+
+
+
+
+
+
+#

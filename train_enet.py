@@ -23,18 +23,18 @@ flags.DEFINE_boolean('combine_dataset', False, 'If True, combines the validation
 flags.DEFINE_integer('num_classes', 2, 'The number of classes to predict.')
 flags.DEFINE_integer('batch_size', 1, 'The batch_size for training.')
 flags.DEFINE_integer('eval_batch_size', 10, 'The batch size used for validation.')
-flags.DEFINE_integer('image_height', 360, "The input height of the images.")
-flags.DEFINE_integer('image_width', 480, "The input width of the images.")
+flags.DEFINE_integer('image_height', 512, "The input height of the images.")
+flags.DEFINE_integer('image_width', 512, "The input width of the images.")
 flags.DEFINE_integer('num_epochs', 300, "The number of epochs to train your model.")
-flags.DEFINE_integer('num_epochs_before_decay', 100, 'The number of epochs before decaying your learning rate.')
-flags.DEFINE_float('weight_decay', 2e-4, "The weight decay for ENet convolution layers.")
-flags.DEFINE_float('learning_rate_decay_factor', 1e-1, 'The learning rate decay factor.')
-flags.DEFINE_float('initial_learning_rate', 5e-4, 'The initial learning rate for your training.')
+flags.DEFINE_integer('num_epochs_before_decay', 300, 'The number of epochs before decaying your learning rate.')
+flags.DEFINE_float('weight_decay', 2e-5, "The weight decay for ENet convolution layers.")
+flags.DEFINE_float('learning_rate_decay_factor', 1e-2, 'The learning rate decay factor.')
+flags.DEFINE_float('initial_learning_rate', 5e-5, 'The initial learning rate for your training.')
 flags.DEFINE_string('weighting', "MFB", 'Choice of Median Frequency Balancing or the custom ENet class weights.')
 
 #Architectural changes
 flags.DEFINE_integer('num_initial_blocks', 1, 'The number of initial blocks to use in ENet.')
-flags.DEFINE_integer('stage_two_repeat', 2, 'The number of times to repeat stage two.')
+flags.DEFINE_integer('stage_two_repeat', 5, 'The number of times to repeat stage two.')
 flags.DEFINE_boolean('skip_connections', True, 'If True, perform skip connections from encoder to decoder.')
 
 FLAGS = flags.FLAGS
