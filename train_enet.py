@@ -20,9 +20,9 @@ flags.DEFINE_boolean('save_images', True, 'Whether or not to save your images.')
 flags.DEFINE_boolean('combine_dataset', False, 'If True, combines the validation with the train dataset.')
 
 #Training arguments
-flags.DEFINE_integer('num_classes', 12, 'The number of classes to predict.')
-flags.DEFINE_integer('batch_size', 10, 'The batch_size for training.')
-flags.DEFINE_integer('eval_batch_size', 25, 'The batch size used for validation.')
+flags.DEFINE_integer('num_classes', 2, 'The number of classes to predict.')
+flags.DEFINE_integer('batch_size', 1, 'The batch_size for training.')
+flags.DEFINE_integer('eval_batch_size', 10, 'The batch size used for validation.')
 flags.DEFINE_integer('image_height', 360, "The input height of the images.")
 flags.DEFINE_integer('image_width', 480, "The input width of the images.")
 flags.DEFINE_integer('num_epochs', 300, "The number of epochs to train your model.")
@@ -35,7 +35,7 @@ flags.DEFINE_string('weighting', "MFB", 'Choice of Median Frequency Balancing or
 #Architectural changes
 flags.DEFINE_integer('num_initial_blocks', 1, 'The number of initial blocks to use in ENet.')
 flags.DEFINE_integer('stage_two_repeat', 2, 'The number of times to repeat stage two.')
-flags.DEFINE_boolean('skip_connections', False, 'If True, perform skip connections from encoder to decoder.')
+flags.DEFINE_boolean('skip_connections', True, 'If True, perform skip connections from encoder to decoder.')
 
 FLAGS = flags.FLAGS
 
@@ -91,12 +91,12 @@ decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 #=================CLASS WEIGHTS===============================
 #Median frequency balancing class_weights
 if weighting == "MFB":
-    class_weights = median_frequency_balancing()
+    class_weights = median_frequency_balancing(annotation_files,num_classes)
     print("========= Median Frequency Balancing Class Weights =========\n", class_weights)
 
 #Inverse weighing probability class weights
 elif weighting == "ENET":
-    class_weights = ENet_weighing()
+    class_weights = ENet_weighing(annotation_files,num_classes)
     print("========= ENet Class Weights =========\n", class_weights)
 
 #============= TRAINING =================
@@ -153,7 +153,7 @@ def run():
         print("-------------")
         print(type(images))
         print(images)
-        print("-------------")
+        print("-----------sdfdsf--")
 
         #Create the model inference
         with slim.arg_scope(ENet_arg_scope(weight_decay=weight_decay)):
@@ -299,7 +299,7 @@ def run():
 
                     #Check the validation data only at every third of an epoch
                     if step % (num_steps_per_epoch / 3) == 0:
-                        for i in range(len(image_val_files) / eval_batch_size):
+                        for i in range(int(len(image_val_files) / eval_batch_size)):
                             validation_accuracy, validation_mean_IOU = eval_step(sess, metrics_op_val)
 
                     summaries = sess.run(my_summary_op)

@@ -7,14 +7,14 @@ from scipy.misc import imsave
 import numpy as np
 slim = tf.contrib.slim
 
-image_dir = './dataset/test/'
+image_dir = './RailData2-1/test/'
 images_list = sorted([os.path.join(image_dir, file) for file in os.listdir(image_dir) if file.endswith('.png')])
 
-checkpoint_dir = "./checkpoint"
+checkpoint_dir = "./RailData2-1/log"
 checkpoint = tf.train.latest_checkpoint(checkpoint_dir)
 
 num_initial_blocks = 1
-skip_connections = False
+skip_connections = True
 stage_two_repeat = 2
 '''
 #Labels to colours are obtained from here:
