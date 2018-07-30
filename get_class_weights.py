@@ -38,7 +38,7 @@ def ENet_weighing(image_files, num_classes):
         class_weights.append(class_weight)
 
     #Set the last class_weight to 0.0
-    class_weights[-1] = 0.0
+    #class_weights[-1] = 0.0
 
     return class_weights
 
@@ -91,7 +91,7 @@ def median_frequency_balancing(image_files, num_classes):
         class_weights.append(median_frequency_balanced)
 
     #Set the last class_weight to 0.0 as it's the background class
-    class_weights[-1] = 0.0
+    #class_weights[-1] = 0.0
 
     return class_weights
 

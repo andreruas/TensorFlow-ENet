@@ -147,7 +147,7 @@ def run():
         annotation = tf.image.decode_image(annotation)
 
         #preprocess and batch up the image and annotation
-        preprocessed_image, preprocessed_annotation = preprocess(image, annotation, image_height, image_width)
+        preprocessed_image, preprocessed_annotation = preprocess(image, image_height, image_width, annotation)
         images, annotations = tf.train.batch([preprocessed_image, preprocessed_annotation], batch_size=batch_size, allow_smaller_final_batch=True)
 
         print("-------------")
@@ -225,7 +225,7 @@ def run():
         annotation_val = tf.image.decode_png(annotation_val)
 
         #preprocess and batch up the image and annotation
-        preprocessed_image_val, preprocessed_annotation_val = preprocess(image_val, annotation_val, image_height, image_width)
+        preprocessed_image_val, preprocessed_annotation_val = preprocess(image_val, image_height, image_width, annotation_val)
         images_val, annotations_val = tf.train.batch([preprocessed_image_val, preprocessed_annotation_val], batch_size=eval_batch_size, allow_smaller_final_batch=True)
 
         with slim.arg_scope(ENet_arg_scope(weight_decay=weight_decay)):
